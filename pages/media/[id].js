@@ -23,7 +23,7 @@ export default function Post({ postData }) {
     useEffect(() => {
         axios({
             method: 'post',
-            url: '/api/all',
+            url: 'http://spider.yunzitui.com:7474/api/all',
             data: qs.stringify({
                 size: pagination.size,
                 num: pagination.num,

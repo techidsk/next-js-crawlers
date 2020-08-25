@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 function Profile() {
-  const { data, error } = useSWR('http://spider.yunzitui.com:7474/api/media/list', fetcher)
+  const { data, error } = useSWR('http://localhost:3000/api/media/list', fetcher)
   const operation = (actions, rowData) => {
     return <Link href="/media/[id]" as={`/media/${rowData.rowValue.id}-${rowData.rowValue.alias}`} >
       <a>查看</a>
@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>媒体入口</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

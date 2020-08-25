@@ -20,10 +20,10 @@ export default function Post({ postData }) {
         return <a href={`${rowData.rowValue.url}`} target='_blank'>{rowData.rowValue.url}</a>
     }
 
-    useEffect(() => {
-        axios({
+    const fetchData = async () => {
+        await axios({
             method: 'post',
-            url: 'http://spider.yunzitui.com:7474/api/all',
+            url: 'http://localhost:3000/api/all',
             data: qs.stringify({
                 size: pagination.size,
                 num: pagination.num,
@@ -37,6 +37,11 @@ export default function Post({ postData }) {
                 return { ...e, time: dayjs(e.time).format(`YYYY-MM-DD HH:mm:ss`), operation }
             }))
         })
+    }
+
+    useEffect(() => {
+        fetchData()
+        console.log(id)
     }, [pagination.num, id])
 
     let pageData = _.filter(postData, e => e.name === id)[0]
@@ -68,7 +73,7 @@ export async function getServerSideProps(context) {
     let postData = []
     await axios({
         method: 'get',
-        url: '/api/media/list'
+        url: 'http://localhost:3000/api/media/list'
     }).then((res) => {
         postData = res.data.map(e => {
             return {

@@ -23,7 +23,7 @@ export default function Post({ postData }) {
     const fetchData = async () => {
         await axios({
             method: 'post',
-            url: 'http://site.yunzitui.com:3000/api/all',
+            url: 'http://site.yunzitui.com:10024/api/all',
             data: qs.stringify({
                 size: pagination.size,
                 num: pagination.num,
@@ -73,7 +73,7 @@ export async function getServerSideProps(context) {
     let postData = []
     await axios({
         method: 'get',
-        url: 'http://site.yunzitui.com:3000/api/media/list'
+        url: 'http://site.yunzitui.com:10024/api/media/list'
     }).then((res) => {
         postData = res.data.map(e => {
             return {

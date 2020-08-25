@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 function Profile() {
-  const { data, error } = useSWR('http://site.yunzitui.com:3000/api/media/list', fetcher)
+  const { data, error } = useSWR('http://site.yunzitui.com:10024/api/media/list', fetcher)
   const operation = (actions, rowData) => {
     return <Link href="/media/[id]" as={`/media/${rowData.rowValue.id}-${rowData.rowValue.alias}`} >
       <a>查看</a>

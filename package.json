@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "build": "next build -p 6653",
-    "start": "next start -p 6653"
+    "build": "next build",
+    "prd": "pr2 start bin/www",
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@zeit-ui/react": "^1.8.0-canary.10",

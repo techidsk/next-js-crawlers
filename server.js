@@ -13,18 +13,6 @@ const devProxy = {
     }
 }
 
-
-const prodProxy = {
-    'http://localhost:3000/api': {
-        target: 'http://spider.yunzitui.com:7474/api', // 端口自己配置合适的
-        pathRewrite: {
-            '^/api': '/'
-        },
-        changeOrigin: true
-    }
-}
-
-
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({
@@ -36,15 +24,9 @@ app.prepare()
     .then(() => {
         const server = express()
 
-        if (dev && devProxy) {
-            Object.keys(devProxy).forEach(function (context) {
-                server.use(createProxyMiddleware(context, devProxy[context]))
-            })
-        } else {
-            Object.keys(prodProxy).forEach(function (context) {
-                server.use(createProxyMiddleware(context, prodProxy[context]))
-            })
-        }
+        Object.keys(devProxy).forEach(function (context) {
+            server.use(createProxyMiddleware(context, devProxy[context]))
+        })
 
         server.all('*', (req, res) => {
             handle(req, res)

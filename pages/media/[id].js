@@ -4,7 +4,7 @@ import qs from 'qs';
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Table, Pagination, Divider, Button } from '@zeit-ui/react'
+import { Table, Pagination, Divider, Button, Input } from '@zeit-ui/react'
 import axios from 'axios'
 import _ from 'lodash'
 

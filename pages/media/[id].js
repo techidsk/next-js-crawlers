@@ -43,7 +43,6 @@ export default function Post({ postData }) {
 
     useEffect(() => {
         fetchData()
-        console.log(id)
     }, [pagination.num, id])
 
     let pageData = _.filter(postData, e => e.name === id)[0]
@@ -63,7 +62,7 @@ export default function Post({ postData }) {
         <div>
             <Input placeholder="搜索" value={title} onChange={e => setTitle(e.target.value)} />
             <Spacer x={1} />
-            <Button onClick={fetchData}> 搜索</Button>
+            <Button onClick={() => fetchData()}> 搜索</Button>
         </div>
         <Spacer y={1} />
         <Table data={data}>

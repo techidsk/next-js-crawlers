@@ -4,7 +4,7 @@ import qs from 'qs';
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Table, Pagination, Divider, Button, Input } from '@zeit-ui/react'
+import { Table, Pagination, Divider, Button, Input, Spacer } from '@zeit-ui/react'
 import axios from 'axios'
 import _ from 'lodash'
 
@@ -60,8 +60,12 @@ export default function Post({ postData }) {
                 </Link>
             </h2>
         </div>
-        <Input placeholder="搜索" value={title} onChange={e => setTitle(e.target.value)} />
-        <Button onClick={fetchData()}>搜索</Button>
+        <div>
+            <Input placeholder="搜索" value={title} onChange={e => setTitle(e.target.value)} />
+            <Spacer x={1} />
+            <Button onClick={fetchData}> 搜索</Button>
+        </div>
+        <Spacer y={1} />
         <Table data={data}>
             <Table.Column prop="site" label="媒体" />
             <Table.Column prop="title" label="标题" />

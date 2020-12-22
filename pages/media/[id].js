@@ -13,6 +13,7 @@ const dayjs = require('dayjs')
 export default function Post({ postData }) {
 
     const [data, setData] = useState([])
+    const [title, setTitle] = useState('')
     const [pagination, setPagination] = useState({ size: 15, num: 1, count: 1 })
     const router = useRouter()
     const { id } = router.query
@@ -27,7 +28,8 @@ export default function Post({ postData }) {
             data: qs.stringify({
                 size: pagination.size,
                 num: pagination.num,
-                media_id: _.split(id, '-')[0]
+                media_id: _.split(id, '-')[0],
+                title: title
             })
         }).then(function (response) {
             let data = response.data.data
@@ -58,6 +60,8 @@ export default function Post({ postData }) {
                 </Link>
             </h2>
         </div>
+        <Input placeholder="搜索" value={title} onChange={e => setTitle(e.target.value)} />
+        <Button onClick={fetchData()}>搜索</Button>
         <Table data={data}>
             <Table.Column prop="site" label="媒体" />
             <Table.Column prop="title" label="标题" />

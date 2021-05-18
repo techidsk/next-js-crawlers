@@ -4,8 +4,10 @@ const next = require('next')
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const devProxy = {
-    'http://site.yunzitui.com:10024/api': {
-        target: 'http://spider.yunzitui.com:7474/api', // 端口自己配置合适的
+    // 'http://site.yunzitui.com:10024/api': {
+    'http://localhost:10024/api': {
+        //target: 'http://spider.yunzitui.com:7474/api', // 端口自己配置合适的
+        target: 'http://localhost:7474/api', // 端口自己配置合适的
         pathRewrite: {
             '^/api': '/'
         },

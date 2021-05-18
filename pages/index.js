@@ -1,32 +1,54 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Table, Button, Loading } from '@zeit-ui/react'
-import { useMedia } from '../lib/medias';
+import { Input, Button, Loading, Grid, Card, Divider, Text, Row, Col, Spacer } from '@geist-ui/react'
 import useSWR from 'swr'
 import axios from 'axios'
 
 const fetcher = url => axios.get(url).then(res => res.data)
-function Profile() {
-  const { data, error } = useSWR('http://site.yunzitui.com:10024/api/media/list', fetcher)
-  const operation = (actions, rowData) => {
-    return <Link href="/media/[id]" as={`/media/${rowData.rowValue.id}-${rowData.rowValue.alias}`} >
-      <a>查看</a>
-    </Link >
-  }
+function Profile({ name }) {
+  // const { data, error } = useSWR('http://site.yunzitui.com:10024/api/media/list', fetcher)
+  const { data, error } = useSWR('http://localhost:10024/api/media/list', fetcher)
 
   if (error) return <div>读取失败</div>
   if (!data) return <Loading />
 
-  return <Table data={data.map(e => {
-    return { ...e, operation }
-  })}>
-    <Table.Column prop="name" label="媒体" />
-    <Table.Column prop="operation" label="操作" />
-  </Table>
+  return <div style={{ width: 1200 }}>
+    <Grid.Container gap={2} justify="center">
+      {
+        data.data.filter(e => e.name.indexOf(name) > -1).map(e => {
+          let num = data.nums.filter(n => parseInt(n.media_id) === e.id)
+          return <Grid xs={6} key={e.id}>
+            <MockItem name={e.name} id={e.id} alias={e.alias} num={num} />
+          </Grid>
+        })
+      }
+    </Grid.Container>
+  </div>
+}
+
+const MockItem = ({ name, id, alias, num }) => {
+  return <Card shadow style={{ width: '100%' }}>
+    <Card.Content>
+      <Link href="/media/[id]" as={`/media/${id}-${alias}`} >
+        <h4 style={{ textAlign: 'center', cursor: 'pointer' }}>{name}</h4>
+      </Link >
+      <Row gap={.8}>
+        <Col>
+          <Text>昨日: {num[0]?.num}</Text>
+        </Col>
+        <Col>
+          <Text>今日: {num[1]?.num}</Text>
+        </Col>
+      </Row>
+    </Card.Content>
+  </Card>
 }
 
 export default function Home() {
+
+  const [name, setName] = useState('')
+
   return (
     <div className="container">
       <Head>
@@ -36,7 +58,10 @@ export default function Home() {
 
       <main>
         <h1>媒体入口</h1>
-        <Profile />
+        <Divider y={1} />
+        <Input placeholder="筛选媒体" onChange={e => setName(e.target.value)} />
+        <Divider y={1} />
+        <Profile name={name} />
       </main>
 
       <style jsx>{`

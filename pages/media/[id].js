@@ -4,7 +4,7 @@ import qs from 'qs';
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Table, Pagination, Divider, Button, Input, Spacer } from '@zeit-ui/react'
+import { Table, Pagination, Divider, Button, Input, Spacer } from '@geist-ui/react'
 import axios from 'axios'
 import _ from 'lodash'
 
@@ -24,7 +24,8 @@ export default function Post({ postData }) {
     const fetchData = async () => {
         await axios({
             method: 'post',
-            url: 'http://site.yunzitui.com:10024/api/all',
+            //  url: 'http://site.yunzitui.com:10024/api/all',
+            url: 'http://localhost:10024/api/all',
             data: qs.stringify({
                 size: pagination.size,
                 num: pagination.num,
@@ -80,9 +81,10 @@ export async function getServerSideProps(context) {
     let postData = []
     await axios({
         method: 'get',
-        url: 'http://site.yunzitui.com:10024/api/media/list'
+        //  url: 'http://site.yunzitui.com:10024/api/media/list'
+        url: 'http://localhost:10024/api/media/list'
     }).then((res) => {
-        postData = res.data.map(e => {
+        postData = res.data.data.map(e => {
             return {
                 id: e.name,
                 name: `${e.id}-${e.alias}`

@@ -9,7 +9,7 @@
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
-    "@zeit-ui/react": "^1.8.0-canary.10",
+    "@geist-ui/react": "^2.1.5",
     "axios": "^0.19.2",
     "dayjs": "^1.8.33",
     "express": "^4.17.1",

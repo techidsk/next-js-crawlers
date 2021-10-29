@@ -9,7 +9,8 @@
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
-    "@geist-ui/react": "^2.1.5",
+    "@antv/g2plot": "^2.3.39",
+    "@geist-ui/react": "^2.2.0",
     "axios": "^0.19.2",
     "dayjs": "^1.8.33",
     "express": "^4.17.1",

@@ -4,9 +4,10 @@ import qs from 'qs';
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Table, Pagination, Divider, Button, Input, Spacer } from '@geist-ui/react'
+import { Table, Pagination, Divider, Button, Input, Spacer, Collapse, Grid } from '@geist-ui/react'
 import axios from 'axios'
 import _ from 'lodash'
+import { Column } from '@antv/g2plot';
 
 const dayjs = require('dayjs')
 
@@ -21,6 +22,7 @@ export default function Post({ postData }) {
         return <a href={`${rowData.rowValue.url}`} target='_blank'>{rowData.rowValue.url}</a>
     }
 
+    // 获取媒体详情
     const fetchData = async () => {
         await axios({
             method: 'post',
@@ -39,6 +41,14 @@ export default function Post({ postData }) {
             setData(data.map(e => {
                 return { ...e, time: dayjs(e.time).format(`YYYY-MM-DD HH:mm:ss`), operation }
             }))
+            console.log(response.data.graph)
+            const columnPlot = new Column('container', {
+                data: response.data.graph,
+                xField: 'date',
+                yField: 'num',
+            });
+
+            columnPlot.render();
         })
     }
 
@@ -60,11 +70,18 @@ export default function Post({ postData }) {
                 </Link>
             </h2>
         </div>
-        <div>
-            <Input placeholder="搜索" value={title} onChange={e => setTitle(e.target.value)} />
-            <Spacer x={1} />
-            <Button onClick={() => fetchData()}> 搜索</Button>
-        </div>
+        <Grid.Container gap={1}>
+            <Grid xs={8}>
+                <Input placeholder="搜索" value={title} onChange={e => setTitle(e.target.value)} width="100%" />
+            </Grid>
+            <Grid xs={8}>
+                <Button onClick={() => fetchData()} scale={0.8} type="success">搜索</Button>
+            </Grid>
+        </Grid.Container >
+        <Spacer y={1} />
+        <Collapse title="发布数量表">
+            <div id="container"></div>
+        </Collapse>
         <Spacer y={1} />
         <Table data={data}>
             <Table.Column prop="site" label="媒体" />

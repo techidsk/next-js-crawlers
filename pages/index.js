@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Input, Button, Loading, Grid, Card, Divider, Text, Row, Col, Spacer } from '@geist-ui/react'
+import { Input, Button, Loading, Grid, Card, Divider, Text, Spacer } from '@geist-ui/react'
 import useSWR from 'swr'
 import axios from 'axios'
 
@@ -33,14 +33,14 @@ const MockItem = ({ name, id, alias, num }) => {
       <Link href="/media/[id]" as={`/media/${id}-${alias}`} >
         <h4 style={{ textAlign: 'center', cursor: 'pointer' }}>{name}</h4>
       </Link >
-      <Row gap={.8}>
-        <Col>
+      <Grid.Container gap={.8} justify="center" height="48px">
+        <Grid xs={8} >
           <Text>昨日: {num[0]?.num}</Text>
-        </Col>
-        <Col>
+        </Grid >
+        <Grid xs={8}>
           <Text>今日: {num[1]?.num}</Text>
-        </Col>
-      </Row>
+        </Grid >
+      </Grid.Container>
     </Card.Content>
   </Card>
 }

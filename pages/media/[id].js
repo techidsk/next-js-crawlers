@@ -18,8 +18,9 @@ export default function Post({ postData }) {
     const [pagination, setPagination] = useState({ size: 15, num: 1, count: 1 })
     const router = useRouter()
     const { id } = router.query
-    const operation = (actions, rowData) => {
-        return <a href={`${rowData.rowValue.url}`} target='_blank'>{rowData.rowValue.url}</a>
+
+    const renderAction = (value, rowData) => {
+        return <a href={`${rowData.url}`} target='_blank'>{rowData.url}</a>
     }
 
     // 获取媒体详情
@@ -39,15 +40,14 @@ export default function Post({ postData }) {
             let total = response.data.total
             setPagination({ ...pagination, count: Math.round(total / pagination.size) + 1 })
             setData(data.map(e => {
-                return { ...e, time: dayjs(e.time).format(`YYYY-MM-DD HH:mm:ss`), operation }
+                return { ...e, time: dayjs(e.time).format(`YYYY-MM-DD HH:mm:ss`) }
             }))
-            console.log(response.data.graph)
+
             const columnPlot = new Column('container', {
                 data: response.data.graph,
                 xField: 'date',
                 yField: 'num',
             });
-
             columnPlot.render();
         })
     }
@@ -86,7 +86,7 @@ export default function Post({ postData }) {
         <Table data={data}>
             <Table.Column prop="site" label="媒体" />
             <Table.Column prop="title" label="标题" />
-            <Table.Column prop="operation" label="地址" />
+            <Table.Column prop="url" label="地址" render={renderAction} />
             <Table.Column prop="time" label="时间" />
         </Table>
         <Divider />

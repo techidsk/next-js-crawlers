@@ -7,8 +7,8 @@ import axios from 'axios'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 function Profile({ name }) {
-  const { data, error } = useSWR('http://site.yunzitui.com:10024/api/media/list', fetcher)
-  // const { data, error } = useSWR('http://localhost:10024/api/media/list', fetcher)
+  const { data, error } = useSWR('http://site.yunzitui.com:7788/api/media/list', fetcher)
+  // const { data, error } = useSWR('http://localhost:7788/api/media/list', fetcher)
 
   if (error) return <div>读取失败</div>
   if (!data) return <Loading />

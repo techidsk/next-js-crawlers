@@ -4,8 +4,8 @@ const next = require('next')
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const devProxy = {
-    'http://site.yunzitui.com:10024/api': {
-        // 'http://localhost:10024/api': {
+    'http://site.yunzitui.com:7788/api': {
+        // 'http://localhost:7788/api': {
         target: 'http://spider.yunzitui.com:7474/api', // 端口自己配置合适的
         // target: 'http://localhost:7474/api', // 端口自己配置合适的
         pathRewrite: {
@@ -15,7 +15,7 @@ const devProxy = {
     }
 }
 
-const port = parseInt(process.env.PORT, 10) || 10024
+const port = parseInt(process.env.PORT, 10) || 7788
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({
     dev

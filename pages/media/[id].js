@@ -15,7 +15,7 @@ export default function Post({ postData }) {
 
     const [data, setData] = useState([])
     const [title, setTitle] = useState('')
-
+    const [page, setPage] = useState(1)
     const [pagination, setPagination] = useState({ size: 15, num: 1, count: 1 })
     const router = useRouter()
     const { id } = router.query
@@ -94,8 +94,9 @@ export default function Post({ postData }) {
         <Pagination count={pagination.count} initialPage={1} page={pagination.num} limit={pagination.size} onChange={e => setPagination({ ...pagination, num: e })} />
         <div>
             <span>跳转至</span>
-            <Input placeholder="跳转至" value={pagination.num} onChange={e => setPagination({ ...pagination, num: e.target.value })} />
+            <Input placeholder="跳转至" value={page} onChange={e => setPage(e.target.value)} />
             <span>页</span>
+            <Button onClick={() => setPagination({ ...pagination, num: page })} scale={0.8} type="success">确认</Button>
         </div>
     </Layout>
 }

@@ -91,8 +91,12 @@ export default function Post({ postData }) {
             <Table.Column prop="time" label="时间" />
         </Table>
         <Divider />
-        <Pagination count={pagination.count} initialPage={pagination.num} limit={pagination.size} onChange={e => setPagination({ ...pagination, num: e })} />
-        <Input placeholder="跳转至" value={pagination.num} onChange={e => setPagination({ ...pagination, num: e.target.value })} width="100%" />
+        <Pagination count={pagination.count} initialPage={1} page={pagination.num} limit={pagination.size} onChange={e => setPagination({ ...pagination, num: e })} />
+        <div>
+            <span>跳转至</span>
+            <Input placeholder="跳转至" value={pagination.num} onChange={e => setPagination({ ...pagination, num: e.target.value })} />
+            <span>页</span>
+        </div>
     </Layout>
 }
 
